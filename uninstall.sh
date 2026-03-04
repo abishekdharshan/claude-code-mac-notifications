@@ -3,61 +3,25 @@
 
 set -e
 
-SCRIPTS_DIR="$HOME/.claude/scripts"
-ASSETS_DIR="$HOME/.claude/assets"
-SETTINGS_FILE="$HOME/.claude/settings.local.json"
-
 echo "Uninstalling Claude Code Mac Notifications..."
-echo ""
 
-# Remove notification scripts
-if [[ -f "$SCRIPTS_DIR/notify-input-needed.sh" ]]; then
-    rm "$SCRIPTS_DIR/notify-input-needed.sh"
-    echo "Removed notify-input-needed.sh"
-fi
+rm -f ~/.claude/scripts/notify-input-needed.sh
+rm -f ~/.claude/scripts/notify-task-complete.sh
+rm -f /tmp/claude-notify-*-cooldown
 
-if [[ -f "$SCRIPTS_DIR/notify-task-complete.sh" ]]; then
-    rm "$SCRIPTS_DIR/notify-task-complete.sh"
-    echo "Removed notify-task-complete.sh"
-fi
-
-# Remove icon
-if [[ -f "$ASSETS_DIR/claude-icon.png" ]]; then
-    rm "$ASSETS_DIR/claude-icon.png"
-    echo "Removed claude-icon.png"
-fi
-
-# Remove cooldown files
-rm -f /tmp/claude-notify-input-cooldown
-rm -f /tmp/claude-notify-complete-cooldown
-
-# Remove hooks from settings
-if [[ -f "$SETTINGS_FILE" ]]; then
-    if grep -q '"hooks"' "$SETTINGS_FILE"; then
-        python3 << PYTHON
+if [[ -f ~/.claude/settings.local.json ]] && grep -q '"hooks"' ~/.claude/settings.local.json; then
+    python3 << 'PYTHON'
 import json
-
-with open("$SETTINGS_FILE", "r") as f:
+with open("$HOME/.claude/settings.local.json".replace("$HOME", __import__("os").environ["HOME"]), "r") as f:
     settings = json.load(f)
-
 if "hooks" in settings:
-    # Remove Notification and Stop hooks if they contain our scripts
-    if "Notification" in settings["hooks"]:
-        del settings["hooks"]["Notification"]
-    if "Stop" in settings["hooks"]:
-        del settings["hooks"]["Stop"]
-
-    # Remove hooks key entirely if empty
+    settings["hooks"].pop("Notification", None)
+    settings["hooks"].pop("Stop", None)
     if not settings["hooks"]:
         del settings["hooks"]
-
-with open("$SETTINGS_FILE", "w") as f:
+with open("$HOME/.claude/settings.local.json".replace("$HOME", __import__("os").environ["HOME"]), "w") as f:
     json.dump(settings, f, indent=2)
 PYTHON
-        echo "Removed hooks from settings.local.json"
-    fi
 fi
 
-echo ""
-echo "Uninstallation complete!"
-echo "Restart Claude Code to apply changes."
+echo "Done! Restart Claude Code."
