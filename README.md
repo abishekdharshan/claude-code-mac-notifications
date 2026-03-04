@@ -3,7 +3,7 @@
 Native macOS notifications for [Claude Code](https://claude.ai/claude-code) - get notified when Claude needs your input or finishes a task.
 
 <p align="center">
-  <img src="assets/demo.png" alt="Claude Code Notifications Demo" width="400">
+  <img src="assets/claude-icon.png" alt="Claude Icon" width="80">
 </p>
 
 ## Features
