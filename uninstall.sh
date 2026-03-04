@@ -4,6 +4,7 @@
 set -e
 
 SCRIPTS_DIR="$HOME/.claude/scripts"
+ASSETS_DIR="$HOME/.claude/assets"
 SETTINGS_FILE="$HOME/.claude/settings.local.json"
 
 echo "Uninstalling Claude Code Mac Notifications..."
@@ -18,6 +19,12 @@ fi
 if [[ -f "$SCRIPTS_DIR/notify-task-complete.sh" ]]; then
     rm "$SCRIPTS_DIR/notify-task-complete.sh"
     echo "Removed notify-task-complete.sh"
+fi
+
+# Remove icon
+if [[ -f "$ASSETS_DIR/claude-icon.png" ]]; then
+    rm "$ASSETS_DIR/claude-icon.png"
+    echo "Removed claude-icon.png"
 fi
 
 # Remove cooldown files
