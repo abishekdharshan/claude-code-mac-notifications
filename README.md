@@ -14,17 +14,13 @@ Native macOS notifications for [Claude Code](https://claude.ai/claude-code) - ge
 - **Cooldown protection** - 3-second cooldown prevents notification spam
 - **Custom sounds** - "Ping" for input needed, "Glass" for task complete
 
-### Supported Terminals
+### Supported Apps
 
-Focus detection works with:
-- Terminal.app
-- iTerm2
-- Warp
-- Alacritty
-- Kitty
-- Ghostty
-- WezTerm
-- Hyper
+Focus detection skips notifications when these apps are focused:
+
+**Terminals:** Terminal.app, iTerm2, Warp, Alacritty, Kitty, Ghostty, WezTerm, Hyper
+
+**IDEs:** Cursor, VS Code, Windsurf, Zed
 
 ## Installation
 

@@ -41,7 +41,7 @@ cat > "$SCRIPTS_DIR/notify-input-needed.sh" << 'SCRIPT'
 # Skip if terminal is already focused
 ACTIVE_APP=$(osascript -e 'tell application "System Events" to get name of first application process whose frontmost is true' 2>/dev/null)
 case "$ACTIVE_APP" in
-    Terminal|iTerm2|Warp|Alacritty|kitty|Ghostty|WezTerm|Hyper)
+    Terminal|iTerm2|Warp|Alacritty|kitty|Ghostty|WezTerm|Hyper|Cursor|Code|Windsurf|Zed)
         exit 0
         ;;
 esac
@@ -80,7 +80,7 @@ cat > "$SCRIPTS_DIR/notify-task-complete.sh" << 'SCRIPT'
 # Skip if terminal is already focused
 ACTIVE_APP=$(osascript -e 'tell application "System Events" to get name of first application process whose frontmost is true' 2>/dev/null)
 case "$ACTIVE_APP" in
-    Terminal|iTerm2|Warp|Alacritty|kitty|Ghostty|WezTerm|Hyper)
+    Terminal|iTerm2|Warp|Alacritty|kitty|Ghostty|WezTerm|Hyper|Cursor|Code|Windsurf|Zed)
         exit 0
         ;;
 esac
